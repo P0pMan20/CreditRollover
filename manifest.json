@@ -1,6 +1,6 @@
 {
     "name": "CreditRollover",
-    "version_number": "1.0.0",
+    "version_number": "1.1.0",
     "website_url": "https://github.com/P0pMan20/CreditRollover",
     "description": "This mod lets your credits rollover to the next round after you get ejected",
     "dependencies": [
