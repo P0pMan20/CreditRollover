@@ -14,5 +14,6 @@ Potentially anything that messes with Terminal.groupCredits or anything that pre
 
 ### Todo
 
--[ ] Put code on Github.
+-[x] Put code on Github.
+
 -[ ] Allow user to specfic rollover percentage in config.
