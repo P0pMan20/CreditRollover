@@ -10,6 +10,7 @@ using UnityEngine.Analytics;
 
 namespace FloopyLessRogueLikeMoreRogueLite
 {
+    // Thanks floop for giving me the idea
     [BepInPlugin("pop.mods.creditrollover", "CreditRollover", "1.1.0")]
     public class Plugin : BaseUnityPlugin
     {
