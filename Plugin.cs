@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Linq;
 using BepInEx;
+using BepInEx.Configuration;
+using FloopyLessRogueLikeMoreRogueLite;
 using HarmonyLib;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Analytics;
 
@@ -9,15 +13,48 @@ namespace FloopyLessRogueLikeMoreRogueLite
     [BepInPlugin("pop.mods.creditrollover", "CreditRollover", "1.0.0")]
     public class Plugin : BaseUnityPlugin
     {
+        public ConfigEntry<float> percentageRollover;
         private void Awake()
         {
+            percentageRollover = Config.Bind("General", "percentageRollover", 1f, "The percentage of credits that rollover to the next round. Ideally within 0 to 1 as rolloverCredits = previousCreds * percentageRollover.");
+            
             // Plugin startup logic
             Logger.LogInfo($"CreditRollover has loaded :)");
             Harmony.CreateAndPatchAll(typeof(PatchCreditsToRollOver));
             Logger.LogInfo($"CreditRollover is finished patching :D");
+            ImNotReallySureHowToDoThis.valueOfRolloverPercentage = percentageRollover.Value;
+            Logger.LogInfo($"Loaded config");
+
 
         }
     }
+}
+
+// My C# knowledge sucks so I'm really not sure how to pass the rolloverPercentage to the patch class
+// https://csharpindepth.com/articles/singleton
+public sealed class ImNotReallySureHowToDoThis
+{
+    private static readonly ImNotReallySureHowToDoThis instance = new ImNotReallySureHowToDoThis();
+
+    public static ImNotReallySureHowToDoThis _instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+    
+
+    static ImNotReallySureHowToDoThis()
+    {
+        
+    }
+    private ImNotReallySureHowToDoThis()
+    {
+        
+    }
+
+    public static float valueOfRolloverPercentage;
 }
 
 class PatchCreditsToRollOver
@@ -49,7 +86,8 @@ class PatchCreditsToRollOver
     static void SetCreditTerminal(ref StartOfRound __instance)
     {
         // UnityEngine.Debug.Log($"We have {creds} creds");
-        GameObject.FindObjectOfType<Terminal>().groupCredits = creds;
+
+        GameObject.FindObjectOfType<Terminal>().groupCredits = (int)Math.Floor((float)creds * ImNotReallySureHowToDoThis.valueOfRolloverPercentage);
     }
 
 
