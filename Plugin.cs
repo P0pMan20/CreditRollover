@@ -10,7 +10,7 @@ using UnityEngine.Analytics;
 
 namespace FloopyLessRogueLikeMoreRogueLite
 {
-    [BepInPlugin("pop.mods.creditrollover", "CreditRollover", "1.0.0")]
+    [BepInPlugin("pop.mods.creditrollover", "CreditRollover", "1.1.0")]
     public class Plugin : BaseUnityPlugin
     {
         public ConfigEntry<float> percentageRollover;
